@@ -139,6 +139,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-net上传文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/09/net上传文件/">.net上传文件</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/09/net上传文件/" class="archive-article-date">
+  	<time datetime="2019-08-09T08:27:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们再浏览器端上传文件时一般可以在表单中直接使用html的input控件，如果需要对文件大小和格式做一点的限制，可参考如下代码：<br>html:<br><code>&lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; onchange=&quot;uploadFile(this);&quot; /&gt;</code></p>
+<p>script:<br>(<code>)
+ function uploadFile(obj) {
+            var file = obj.files[0]; ///获取文件对象
+            var size = file.size / 1024 / 1024; ///计算文件大小
+            if (size &gt; 15) {
+                $.messager.alert(&#39;提示&#39;, &#39;文件大小不能大于15M&#39;, &#39;info&#39;);
+                obj.value = &quot;&quot;;
+                return;
+            }
+            var name = obj.value;
+            var filetype = name.substring(name.lastIndexOf(&quot;.&quot;) + 1); //文件的格式
+            if (filetype != &quot;pdf&quot; &amp;&amp; filetype != &quot;doc&quot; &amp;&amp; filetype != &quot;xls&quot; &amp;&amp; filetype != &quot;docx&quot; &amp;&amp; filetype != &quot;xlsx&quot; &amp;&amp; filetype != &quot;png&quot; &amp;&amp; filetype != &quot;jpg&quot; &amp;&amp; filetype != &quot;jpeg&quot;) {
+                $.messager.alert(&#39;提示&#39;, &#39;只能上传word，excel，pdf和图片格式&#39;, &#39;info&#39;);
+                obj.value = &quot;&quot;;
+                return;
+            }
+        }
+(</code>)</p>
+<p>在后台中我们可以直接利用WebClient来上传文件到文件服务器中，但是这有个问题就是我们上传的文件我们需要先把它保存在当前程序根目录的文件夹中，在利用文件夹中的文件名字和上传的路径来上传，因为我们在浏览器端是无法通过代码来获取到文件的真实路径的，这是出至于浏览器的安全考虑的，所以我们来浏览器端输出文件的路径都是：c:\fakepath。<br>保存文件的代码：<br>(<code>)
+ HttpPostedFileBase file = Request.Files[0];
+                if (file.ContentLength &gt; 0)
+                {
+                    var fileName = file.FileName;
+                    var filePath = &quot;File/&quot;;
+                    if (!Directory.Exists(Server.MapPath(&quot;~/&quot;) + filePath)){ ///server.MapPath(&quot;~/&quot;)表示的是当前应用级程序的目录路径
+                        Directory.CreateDirectory(Server.MapPath(&quot;/&quot;) + filePath);
+                    }
+                    filePath += fileName;
+                    var path = Server.MapPath(&quot;/&quot;) + filePath;
+                    file.SaveAs(path);
+                    string result = Encoding.Default.GetString(new WebClient().UploadFile(url,path)); //url：上传路径，path：文件路径的文件名称
+                }
+            }
+(</code>)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/09/net上传文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
