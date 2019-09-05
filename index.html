@@ -139,6 +139,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-EF更新部分字段" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/05/EF更新部分字段/">EF更新部分字段</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/05/EF更新部分字段/" class="archive-article-date">
+  	<time datetime="2019-09-05T07:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>EF:Entity Framework的简写，是微软一个orm框架（Object-Relational Mapping/对象实体映射）,就是对象实体和数据库表的相互映射，EF让我们直接操作实体，然后映射到数据库表，避免了我们直接操作数据库。<br>在我们用EF更新表字段时一般有两种做法：<br><strong>1.先查询出来，再修改保存</strong><br><strong>2.设置修改字段的IsModifed的属性为true，然后保存（避免了查询的操作）</strong></p>
+        
+          <a class="article-more-a" href="/2019/09/05/EF更新部分字段/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/05/EF更新部分字段/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-net上传文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -160,11 +225,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>当我们再浏览器端上传文件时一般可以在表单中直接使用html的input控件，如果需要对文件大小和格式做一点的限制，可参考如下代码：<br>html:<br><code>&lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; onchange=&quot;uploadFile(this);&quot; /&gt;</code></p>
-<p>script:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function uploadFile(obj) &#123;</span><br><span class="line">            var file = obj.files[0]; ///获取文件对象</span><br><span class="line">            var size = file.size / 1024 / 1024; ///计算文件大小</span><br><span class="line">            if (size &gt; 15) &#123;</span><br><span class="line">                alert(&quot;文件大小不能大于15M&quot;);</span><br><span class="line">                obj.value = &quot;&quot;;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            var name = obj.value;</span><br><span class="line">            var filetype = name.substring(name.lastIndexOf(&quot;.&quot;) + 1); //文件的格式</span><br><span class="line">            if (filetype != &quot;pdf&quot; &amp;&amp; filetype != &quot;doc&quot; &amp;&amp; filetype != &quot;xls&quot; &amp;&amp; filetype != &quot;docx&quot; &amp;&amp; filetype != &quot;xlsx&quot; &amp;&amp; filetype != &quot;png&quot; &amp;&amp; filetype != &quot;jpg&quot; &amp;&amp; filetype != &quot;jpeg&quot;) &#123;</span><br><span class="line">                alert(&quot;只能上传word，excel，pdf和图片格式&quot;);</span><br><span class="line">                obj.value = &quot;&quot;;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>在后台中我们可以直接利用WebClient来上传文件到文件服务器中，但是这有个问题就是我们上传的文件我们需要先把它保存在当前程序根目录的文件夹中，在利用文件夹中的文件名字和上传的路径来上传，因为我们在浏览器端是无法通过代码来获取到文件的真实路径的，这是出至于浏览器的安全考虑的，所以我们来浏览器端输出文件的路径都是：c:\fakepath。<br>保存文件的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HttpPostedFileBase file = Request.Files[0];</span><br><span class="line">               if (file.ContentLength &gt; 0)</span><br><span class="line">               &#123;</span><br><span class="line">                   var fileName = file.FileName;</span><br><span class="line">                   var filePath = &quot;File/&quot;;</span><br><span class="line">                   if (!Directory.Exists(Server.MapPath(&quot;~/&quot;) + filePath))&#123; ///server.MapPath(&quot;~/&quot;)表示的是当前应用级程序的目录路径</span><br><span class="line">                       Directory.CreateDirectory(Server.MapPath(&quot;/&quot;) + filePath);</span><br><span class="line">                   &#125;</span><br><span class="line">                   filePath += fileName;</span><br><span class="line">                   var path = Server.MapPath(&quot;/&quot;) + filePath;</span><br><span class="line">                   file.SaveAs(path);</span><br><span class="line">				string result = Encoding.Default.GetString(new WebClient().UploadFile(url,path)); //url：上传路径，path：文件路径的文件名称</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/08/09/net上传文件/#more">more >></a>
+        
       
 
       
